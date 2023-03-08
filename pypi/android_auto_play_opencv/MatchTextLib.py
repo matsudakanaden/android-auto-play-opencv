@@ -47,23 +47,10 @@ class MatchTextLib():
         result = reader.readtext(_screenshot)
         for text in result:
             if text ==　_temp:
-                self.milLoc =  text[0][0],text[0][1]
+                self.loc = text[0]
+                self.minLoc =  text[0][0],text[0][1]
                 self.maxLoc = text[0][2],text[0][3]
-
-                
-                
-                
-            print(text)
-        
-        
-        # テンプレートマッチング
-        match_result = cv2.matchTemplate(self.img, self.temp, cv2.TM_CCOEFF_NORMED)
-
-        #検出結果から検出領域の位置を取得
-        self.loc = numpy.where(match_result >= _threshold)
-        
-        # 最も類似度が高い位置と低い位置を取得します
-        self.minVal, self.maxVal, self.minLoc, self.maxLoc = cv2.minMaxLoc(match_result)
+                print(text)
 
     def judgeMatching(self, _threshold = None):
         """
