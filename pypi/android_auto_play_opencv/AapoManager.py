@@ -160,14 +160,14 @@ class AapoManager:
 
     def touchText(self, _temp):
         """
-        テンプレート画像があればタップします。タップ結果も返してくれます。
+        テキストがあればタップします。タップ結果も返してくれます。
         """
-        result = self.chkImg(_temp)
+        result = self.chkText(_temp)
         if result == False:
             return False
         
         # 中央位置取得
-        cPos = self.mtl.getCenterPos()
+        cPos = self.mtxl.getCenterPos()
         if cPos is None:
             return False
         else:
