@@ -17,7 +17,7 @@ setup(
     license='MIT',  # ライセンス
 
     # pip installする際に同時にインストールされるパッケージ名をリスト形式で指定
-    install_requires=['opencv-python', 'numpy'],
+    install_requires=['opencv-python', 'numpy', 'easyocr'],
 
     author='noita',  # パッケージ作者の名前
     author_email='noitalog.tokyo@gmail.com',  # パッケージ作者の連絡先メールアドレス
