@@ -45,9 +45,8 @@ class MatchTextLib():
         #画像の文字を抽出
         reader = easyocr.Reader(['ja'])
         result = reader.readtext(_screenshot)
-        result
-        
-        
+        for text in result:
+            print(text)
         
         
         # テンプレートマッチング
