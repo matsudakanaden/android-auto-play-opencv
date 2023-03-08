@@ -46,6 +46,13 @@ class MatchTextLib():
         reader = easyocr.Reader(['ja'])
         result = reader.readtext(_screenshot)
         for text in result:
+            if text ==　_temp:
+                self.milLoc =  text[0][0],text[0][1]
+                self.maxLoc = text[0][2],text[0][3]
+
+                
+                
+                
             print(text)
         
         
