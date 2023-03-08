@@ -1,5 +1,6 @@
 import android_auto_play_opencv.Adblib as adb
 import android_auto_play_opencv.MatchTemplateLib as mt
+import android_auto_play_opencv.MatchTextLib as mtx
 from time import sleep
 import os
 
@@ -27,6 +28,7 @@ class AapoManager:
             
         # インスタンス生成
         self.mtl = mt.MatchTemplateLib()
+        self.mtxl = mt.MatchTextLib()
 
     def start(self, _package):
         self.adbl.start(_package)
@@ -114,8 +116,49 @@ class AapoManager:
             else:
                 return (False, 0, 0)
 
+    def chkText(self, _temp, _threshold = None):
+        """
+       テキストがあるか確認します。タップはしません。
+
+        Parameters:
+        ----------
+        _temp : str
+            Text to search
+        _threshold : float | None
+            Threshold for whether template images are included
+        """
+
+        # テキスト検索
+        self.mtxl.matchText(self.adbl.screenImg , _temp, _threshold=_threshold)
+        
+        # 類似度閾値超え判定
+        result = self.mtxl.judgeMatching(_threshold=_threshold)
+        if result:
+            print('テキスト発見, text=' + _temp)
+            return True
+        else:
+            return False
+
 
     def touchImg(self, _temp):
+        """
+        テンプレート画像があればタップします。タップ結果も返してくれます。
+        """
+        result = self.chkImg(_temp)
+        if result == False:
+            return False
+        
+        # 中央位置取得
+        cPos = self.mtl.getCenterPos()
+        if cPos is None:
+            return False
+        else:
+            # タッチ
+            self.adbl.touch(cPos[0], cPos[1])
+            print('タッチ: x=' + str(cPos[0]) + ', y=' + str(cPos[1]) + ', img=' + _temp)
+            return True
+
+    def touchText(self, _temp):
         """
         テンプレート画像があればタップします。タップ結果も返してくれます。
         """
